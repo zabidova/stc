@@ -1,18 +1,13 @@
 import java.util.Random;
 
 public class ArraySort {
-    Integer[] arr = new Integer[15];//{100, 57, 98, 200, 1, 156, 900, 7};
+    Integer[] arr = new Integer{100, 57, 98, 200, 1, 156, 900, 7};
 
     public static void main(String[] args) {
         ArraySort arraySort = new ArraySort();
         /*
 
          */
-        Random rnd = new Random();
-        for (Integer i = 0; i < arraySort.arr.length; i++) {
-            arraySort.arr[i] = rnd.nextInt();
-            System.out.print(arraySort.arr[i] + " ");
-        }
         arraySort.sort();
     }
 
