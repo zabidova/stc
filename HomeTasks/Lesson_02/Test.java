@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.Random;
+
 public class Test {
     private static Integer[] arr = new Integer[10]; // массив, который нужно отсортировать
 
@@ -12,7 +15,7 @@ public class Test {
             arr[i] = random.nextInt();
         }
         ArraySort arraySort = new ArraySort();
-        arraySort.sort(arr);
+        System.out.println(Arrays.asList(arraySort.sort(arr)));
     }
 
 }
