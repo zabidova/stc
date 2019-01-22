@@ -7,7 +7,7 @@ public class ArraySort {
     /**
      *Метод {@code sort()} сортирует массив по возрастанию.
      */
-    public static void sort(Integer[] arr) {
+    public static Integer[] sort(Integer[] arr) {
         for (Integer i = arr.length - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
                 if (arr[j] > arr[j + 1]) {
@@ -17,5 +17,6 @@ public class ArraySort {
                 }
             }
         }
+        return arr;
     }
 }
