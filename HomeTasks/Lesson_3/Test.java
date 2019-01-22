@@ -1,10 +1,19 @@
-package Lesson3;
 
 import java.util.Random;
 
+/**
+ * Содержит массив list
+ */
 public class Test {
     private Integer[] list = new Integer[10];
 
+    /**
+     * Создает объект класса и рандомно заполняет массив значениями
+     * Создает объект класса MathBox и передает массив в качестве аргумента
+     * Вызывает методы MathBox
+     *
+     * @param args аргументы командной строки
+     */
     public static void main(String[] args) {
         Test test = new Test();
         Random random = new Random();

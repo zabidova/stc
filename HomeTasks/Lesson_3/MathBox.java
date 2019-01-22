@@ -78,4 +78,3 @@ public class MathBox<T extends Number> extends ObjectBox{
             throw new IllegalArgumentException("Не верный аргумент");
         }
     }
-}
