@@ -8,7 +8,7 @@ public class Main {
         int id = 1;
         SavedClass savedClass = new SavedClass(name, id);
 
-        SerializerImpl serializerImpl = new SerializerImpl();
+        Serializer serializerImpl = new SerializerImpl();
         serializerImpl.serialize(savedClass, fileName);
         serializerImpl.deSerialize(fileName);
     }
