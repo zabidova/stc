@@ -1,21 +1,37 @@
 
-package HomeTask4;
+package homeTask4;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/**
+ * Этот класс генерирует предложения и запсывает в каталог path
+ *
+ * @author Sevinch
+ */
 public class Generator {
-    private int m_Probality;
-    private String[] m_Words;
-    private int m_size;
+    private int probality;
+    private String[] words;
 
+    public Generator(int probality, String[] words) {
+        this.probality = probality;
+        this.words = words;
+    }
+
+    /**
+     * Создает файл в указанной директории
+     * Вызывает метод generateText
+     *
+     * @param path каталог для сгенерированных файлов
+     * @param n количество файлов для генерации
+     * @param size количество абзацев в файле
+     * @param words словарь
+     * @param probability вероятность с которой добавляются слова в предложение из словаря
+     */
     public void getFiles(String path, int n, int size, String[] words, int probability){
-        this.m_Probality = probability;
-        this.m_Words = words;
-        this.m_size = size;
         for (int i = 0; i < n; i++) {
-            String text = this.generateText(m_size);
+            String text = generateText(size);
             String fileName = "text_" + i + ".txt";
             try(FileOutputStream fos = new FileOutputStream(path + fileName)) {
                 byte[] buffer = text.getBytes();
@@ -23,21 +39,33 @@ public class Generator {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
+                System.out.println("IOException");
                 e.printStackTrace();
             }
         }
     }
-//генерация текста
-    private String generateText(int m_size){
+
+    /**
+     * Генерация текста
+     * вызывает метод generateParagraph()
+     *
+     * @param size количество обзацев в файле
+     * @return возвращает произвольный текст
+     */
+    private String generateText(int size){
         StringBuilder text = new StringBuilder();
-        //int paragraphCount = 1 + (int) Math.random()*10;
-        for (int i = 0; i < m_size; i++) {
+        for (int i = 0; i < size; i++) {
             text.append(this.generateParagraph());
 
         }
         return text.toString();
     }
-//генерация абзаца
+
+    /**
+     * генерация абзаца
+     *
+     * @return произвольные абзацы
+     */
     private String generateParagraph() {
         StringBuilder paragraph = new StringBuilder();
         int sentenceCount = 1 + (int)(Math.random()*20);
@@ -47,28 +75,39 @@ public class Generator {
         paragraph.append("\r\n");
         return paragraph.toString();
     }
-//генерация предложения
+
+    /**
+     * генерация предложения
+     * ВызЫвает метод generateWord()
+     *
+     * @return произвольные предложения
+     */
     private String generateSentence() {
         int totalWordsCount = 1 + (int) (Math.random()*15);
-        int specWordsCount =  totalWordsCount/this.m_Probality;
+        int specWordsCount =  totalWordsCount/this.probality;
         int generateWordsCount = totalWordsCount - specWordsCount;
-        int rnd = (int) (Math.random()* m_Words.length);
+        int rnd = (int) (Math.random()* words.length);
         StringBuilder sentence = new StringBuilder();
         for (int i = 0; i < specWordsCount; i++) {
-            sentence.append(m_Words[rnd]);
+            sentence.append(words[rnd]);
             sentence.append(" ");
         }
         for (int i = 0; i < generateWordsCount; i++) {
             sentence.append(generateWord());
-            if (i == generateWordsCount - 1) {
+            if ( i == generateWordsCount - 1) {
                 sentence.append(getWordPunctuationEnd());
             }
+            sentence.append(" ");
         }
-        sentence.append(" ");
         sentence.setCharAt(0,sentence.substring(0,1).toUpperCase().charAt(0));
         return sentence.toString();
     }
-//генерация слова
+
+    /**
+     * генерация слова
+     *
+     * @return произвольные слова
+     */
     private String generateWord() {
         String[] charset = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
         int wordSize = 1 + (int)(Math.random()*15);
@@ -77,10 +116,14 @@ public class Generator {
             int randomIndex = (int)(Math.random()*25);
             word.append(charset[randomIndex]);
         }
-        word.append(" ");
         return word.toString();
     }
-//генерация случайного знака препинания
+
+    /**
+     * генерация случайного знака препинания
+     *
+     * @return прозивольный знак
+     */
     private String getWordPunctuationEnd() {
         String[] charset = {"!", "?", "."};
         int randomIndex = (int)(Math.random()*2);
