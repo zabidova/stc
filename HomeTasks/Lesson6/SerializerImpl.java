@@ -1,3 +1,4 @@
+
 package homeTask6;
 
 import java.io.*;
@@ -6,8 +7,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Выполняют сериализацию объекта Object в XML файл file и десериализацию объекта из этого файла.
+ */
 public class SerializerImpl implements Serializer {
 
+    /**
+     * Выполняют сериализацию объекта Object в файл file
+     *
+     * @param object Объект для сериализации
+     * @param file Файл для сохранения объекта
+     */
     @Override
     public void serialize(Object object, String file) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -17,7 +27,7 @@ public class SerializerImpl implements Serializer {
         Field[] fields = c.getDeclaredFields();
         for (Field field : fields) {
             field.setAccessible(true);
-            stringBuilder.append(openTag(field.getType().getSimpleName() + " " + field.getName()));
+            stringBuilder.append(openTag(field.getName() + " " + field.getType().getSimpleName()));
            try {
                 stringBuilder.append(field.get(object));
             } catch (IllegalAccessException e) {
@@ -41,9 +51,15 @@ public class SerializerImpl implements Serializer {
     }
 
     private String closeTag (String tag) {
-        return "</" + tag + ">\n";
+        return "</" + tag + ">";
     }
 
+    /**
+     * Выполняет десериализацию из file в Object
+     *
+     * @param file file XML файл для извлечения объекта
+     * @return Возвращает извлеченный объект
+     */
     @Override
     public Object deSerialize(String file) {
         Class myClass;
@@ -62,9 +78,10 @@ public class SerializerImpl implements Serializer {
                 Field field;
                 if (!"".equals(type) && value != null) {
                     try {
-                        field = object.getClass().getDeclaredField(line);
+                        field = object.getClass().getDeclaredField(type);
                     } catch (Exception e) {
                         e.printStackTrace();
+
                         return object;
                     }
 
@@ -92,6 +109,8 @@ public class SerializerImpl implements Serializer {
                         case "boolean" :
                             field.setBoolean(object, Boolean.parseBoolean(value));
                             break;
+                        case "String" :
+                            field.set(object, value);
 
                     }
                 }
@@ -126,6 +145,7 @@ public class SerializerImpl implements Serializer {
         if (matcher.find()) {
             type = matcher.group();
         }
+        System.out.println("type = " + type);
         return type;
     }
 
@@ -137,6 +157,7 @@ public class SerializerImpl implements Serializer {
         if (matcher.find()) {
             value = matcher.group();
         }
+        System.out.println("value = " + value);
         return value;
     }
 
@@ -148,7 +169,7 @@ public class SerializerImpl implements Serializer {
         if (matcher.find()) {
             name = matcher.group();
         }
-        System.out.println("name = " + name );
+        System.out.print("name = " + name );
 
         return name;
     }
