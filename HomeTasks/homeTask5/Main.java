@@ -3,7 +3,7 @@ package homeTask5;
 public class Main extends Thread {
 
     public static void main(String[] args) {
-        String[] sources = {"D:\\my\\text_0.txt"};
+        String[] sources = {"D:\\my\\text0.txt"};
         String[] words = {"Казань", "Казани", "Казанского"};
         String res = "D:\\my\\text_4.txt";
         WorkingThread[] threads = new WorkingThread[10];
