@@ -46,7 +46,7 @@ public class SerializerImpl implements Serializer {
 
     @Override
     public Object deSerialize(String file) {
-        Class myClass = null;
+        Class myClass;
         Object object = null;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))){
@@ -59,8 +59,14 @@ public class SerializerImpl implements Serializer {
                 String type = getName(line);
                 String value = getValue(line);
 
-                Field field = null;
+                Field field;
                 if (!"".equals(type) && value != null) {
+                    try {
+                        field = object.getClass().getDeclaredField(line);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return object;
+                    }
 
                     field.setAccessible(true);
 

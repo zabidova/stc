@@ -3,7 +3,7 @@ package homeTask6;
 public class Main {
 
     public static void main(String[] args) {
-        String fileName = "D:\\my\\text_3.xml";
+        String fileName = "out.text3.xml";
         String name = "Saved Class";
         int id = 1;
         SavedClass savedClass = new SavedClass(name, id);
