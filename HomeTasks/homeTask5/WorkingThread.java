@@ -6,7 +6,7 @@ public class WorkingThread extends Thread {
     private String[] words;
     private OccurenciesImpl oc;
 
-    public WorkingThread(String[] source,String[] words, String res) {
+     WorkingThread(String[] source,String[] words, String res) {
         this.source = source;
         this.res = res;
         this.words = words;

@@ -8,7 +8,7 @@ public class OccurenciesImpl implements Occurencies {
     private String[] words;
     private String res;
 
-    public OccurenciesImpl(String[] words, String res) {
+     OccurenciesImpl(String[] words, String res) {
         this.words = words;
         this.res = res;
     }
@@ -30,6 +30,7 @@ public class OccurenciesImpl implements Occurencies {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //System.out.println(buffer.toString());
         createSentences(buffer.toString());
     }
 
@@ -42,9 +43,9 @@ public class OccurenciesImpl implements Occurencies {
         StringBuffer saveSentence = new StringBuffer();
 
         for (String sentence : sentences) {
-            String[] splited = sentence.split(" ");
+            //String[] splited = sentence.split(" ");
             for (String word : words) {
-                if (Arrays.asList(splited).contains(word)) {
+                if (sentence.contains(word)) {
                     saveSentence.append(sentence);
                 }
             }
