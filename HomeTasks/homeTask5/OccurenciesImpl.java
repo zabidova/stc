@@ -2,8 +2,10 @@
 package homeTask5;
 
 import java.io.*;
-import java.util.Arrays;
 
+/**
+ * Имплементация интерфейса поиска вхождений слов в текстовые ресурсы.
+ */
 public class OccurenciesImpl implements Occurencies {
     private String[] words;
     private String res;
@@ -13,6 +15,13 @@ public class OccurenciesImpl implements Occurencies {
         this.res = res;
     }
 
+    /**
+     * Главный метод поиска вхождений слов из массива
+     *
+     * @param sources исходные ресурсы
+     * @param words Словарь для поиска вхождений
+     * @param res адрес файла для записи результатов поиска.
+     */
     @Override
     public void getOccurencies(String[] sources, String[] words, String res) {
         for (String source : sources) {
@@ -20,6 +29,10 @@ public class OccurenciesImpl implements Occurencies {
         }
     }
 
+    /**
+     *
+     * @param filePath путь до исходного ресурса.
+     */
     private void sourceReader(String filePath) {
         StringBuffer buffer = new StringBuffer();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)))) {
@@ -30,20 +43,29 @@ public class OccurenciesImpl implements Occurencies {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //System.out.println(buffer.toString());
         createSentences(buffer.toString());
     }
 
+    /**
+     *
+     *
+     * @param buffer
+     */
     private void createSentences(String buffer) {
-        String[] sentences = buffer.trim().split("!\\.\\?");
+        String[] sentences = buffer.trim().split("[!.?]");
         wordFinder(sentences);
     }
 
+    /**
+     * Проверка предложения на вхождение в него слов из словаря.
+     * в случае положительного результата добавляется в очередь на запись в файл.
+     *
+     * @param sentences исходные предложения
+     */
     private void wordFinder(String[] sentences) {
         StringBuffer saveSentence = new StringBuffer();
 
         for (String sentence : sentences) {
-            //String[] splited = sentence.split(" ");
             for (String word : words) {
                 if (sentence.contains(word)) {
                     saveSentence.append(sentence);
@@ -53,6 +75,11 @@ public class OccurenciesImpl implements Occurencies {
             fileWriter(saveSentence);
     }
 
+    /**
+     *  запись результатов поиска в файл.
+     *
+     * @param saveSentence путь до исходного файла
+     */
     private void fileWriter(StringBuffer saveSentence) {
         try (FileWriter fileWriter = new FileWriter(res)){
             fileWriter.write(saveSentence.toString());

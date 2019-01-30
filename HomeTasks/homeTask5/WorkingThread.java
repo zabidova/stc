@@ -1,5 +1,8 @@
 package homeTask5;
 
+/**
+ * Класс поиска вхождений слов в ресурс.
+ */
 public class WorkingThread extends Thread {
     private String[] source;
     private String res;
