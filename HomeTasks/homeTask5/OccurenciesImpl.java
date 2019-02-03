@@ -52,7 +52,11 @@ public class OccurenciesImpl implements Occurencies {
      * @param buffer
      */
     private void createSentences(String buffer) {
-        String[] sentences = buffer.trim().split("[!.?]");
+        String[] sentences = buffer.trim()
+                .replaceAll("\\.",".#")
+                .replaceAll("\\!","!#")
+                .replaceAll("\\?","?#")
+                .split("#");
         wordFinder(sentences);
     }
 
