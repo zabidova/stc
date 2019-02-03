@@ -2,6 +2,7 @@ package homeTask8;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class ServerListener extends Thread {
 
@@ -22,9 +23,14 @@ public class ServerListener extends Thread {
     public void run() {
         String word;
         sendMessage("Напишите пожалуйста Ваше имя");
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))){
-            while (!((word = in.readLine()).equals("quit"))) {
-                    if (name.equals("")) {
+        try (Scanner in = new Scanner(socket.getInputStream())) {
+
+            while (in.hasNextLine()) {
+                word = in.nextLine();
+                if (word.equals("quit")) {
+                    break;
+                }
+                if (name.equals("")) {
                     name = word;
                     sendMessage("Добро пожаловать в чат " + name);
                     sendAll(name + " теперь с нами");
@@ -36,7 +42,7 @@ public class ServerListener extends Thread {
             e.printStackTrace();
         } finally {
             Server.serverListener.remove(this);
-            sendAll( " отключился");
+            sendAll(" отключился");
             try {
                 socket.close();
             } catch (IOException e) {
@@ -71,3 +77,4 @@ public class ServerListener extends Thread {
             e.printStackTrace();
         }
     }
+}
