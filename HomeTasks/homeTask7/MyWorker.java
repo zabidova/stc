@@ -5,6 +5,6 @@ public class MyWorker implements Worker {
     }
 
     public void doWork() {
-        System.out.println("Do work!");
+        //System.out.println("Do work!");
     }
 }
